@@ -1,4 +1,4 @@
 llm:
   api_type: 'dashscope'
-  api_key: 'sk-3df8a75ec3be49abb157e73cd88a7cb3'
+  api_key: 'sk-*****'
   model: 'qwen-turbo'
