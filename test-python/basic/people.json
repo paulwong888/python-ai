@@ -1,0 +1,44 @@
+[
+    {
+        "Full Name": "Angst, Annie",
+        "Birth Year": 1982,
+        "Date Joined": "01/11/2011",
+        "Is Active": true,
+        "Balance": 300
+    },
+    {
+        "Full Name": "Schadenfreude, Sandy",
+        "Birth Year": 2004,
+        "Date Joined": "03/03/2003",
+        "Is Active": true,
+        "Balance": 0
+    },
+    {
+        "Full Name": "Bónañas, Barry",
+        "Birth Year": 1973,
+        "Date Joined": "2/11/2012",
+        "Is Active": false,
+        "Balance": -123.45
+    },
+    {
+        "Full Name": "Weltschmerz, Wanda",
+        "Birth Year": 1995,
+        "Date Joined": "4/24/1994",
+        "Is Active": false,
+        "Balance": 999999.99
+    },
+    {
+        "Full Name": "Malaise, Mindy",
+        "Birth Year": 2006,
+        "Date Joined": "5/5/2005",
+        "Is Active": true,
+        "Balance": 454.01
+    },
+    {
+        "Full Name": "O'Possum, Ollie",
+        "Birth Year": 1987,
+        "Date Joined": "7/27/1997",
+        "Is Active": false,
+        "Balance": 1000.00
+    }
+]
