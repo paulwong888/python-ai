@@ -5,11 +5,16 @@ from langchain_core.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 from langchain_openai import OpenAI
 
-tools = load_tools(tool_names=["ddg-search"])
+import os
+from my_config import set_environment
 
-responses = ["Action: Python_REPL\nAction Input: print(2 + 2)", "Final Answer: 5"]
-#llm = FakeListLLM(responses=responses)
-llm = OpenAI(temperature=0)
+#set_environment()
+
+print(os.environ["OPENAI_API_BASE"])
+
+llm = OpenAI(temperature=0, model="gpt-3.5-turbo")
+
+tools = load_tools(tool_names=["wikipedia", "llm-math"], llm=llm)
 
 template='''
 Answer the following questions as best you can. 
@@ -43,5 +48,8 @@ agent = create_react_agent(
 )
 
 agent_executor = AgentExecutor(agent=agent, tools=tools, memory = memory, max_iterations = 3,handle_parsing_errors=True,verbose= True)
- 
-agent_executor.invoke({"input":"How many people live in China?"})
+
+question = """What is the square root of the population of the capital of the
+Country where the Olympic Games were held in 2016?"""
+
+agent_executor.invoke({"input":question})
