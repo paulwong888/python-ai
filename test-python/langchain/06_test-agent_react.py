@@ -8,11 +8,11 @@ from langchain_openai import OpenAI
 import os
 from my_config import set_environment
 
-#set_environment()
+set_environment()
 
 print(os.environ["OPENAI_API_BASE"])
 
-llm = OpenAI(temperature=0, model_name="gpt-3.5-turbo")
+llm = OpenAI(temperature=0, model="gpt-3.5-turbo-0125")
 
 tools = load_tools(tool_names=["wikipedia", "llm-math"], llm=llm)
 

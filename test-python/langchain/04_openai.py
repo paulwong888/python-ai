@@ -1,17 +1,28 @@
-from langchain.llms import OpenAI
-from langchain.agents import load_tools, initialize_agent, AgentType
+from langchain_openai import ChatOpenAI
 from my_config import set_environment
-import os
 
-# set_environment()
+#https://python.langchain.com/v0.2/docs/integrations/chat/openai/
 
-print(os.environ["OPENAI_API_BASE"])
+set_environment()
 
-tools = load_tools(tool_names=["python_repl"])
-llm = OpenAI(model="gpt-3.5-turbo-instruct")
-
-agent = initialize_agent(
-    tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
+llm = ChatOpenAI(
+    #model="gpt-3.5-turbo",
+    #temperature=0,
+    #max_tokens=None,
+    #timeout=None,
+    max_retries=2,
+    # api_key="...",  # if you prefer to pass api key in directly instaed of using env vars
+    # base_url="...",
+    # organization="...",
+    # other params...
 )
 
-agent.run("whats 4 + 4")
+messages = [
+    (
+        "system",
+        "You are a helpful assistant that translates English to French. Translate the user sentence.",
+    ),
+    ("human", "tell me a joke."),
+]
+ai_msg = llm.invoke(messages)
+print(ai_msg)
