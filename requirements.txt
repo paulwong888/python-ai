@@ -16,3 +16,4 @@ crewai[tool]
 torch
 transformers
 Pillow
+requests-file

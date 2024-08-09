@@ -40,6 +40,7 @@ agent_executor = AgentExecutor(
 # result = agent_executor.invoke({"input":"现在几点？"})
 # result = agent_executor.invoke({"input":"香港现任特首是谁？"})
 
-img_url = "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75"
+# img_url = "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75"
+img_url = "file:///Users/paulwong/PAUL/WORKS/WORKSPACES/TEST-WORKSPACE/python-ai/test-python/langchain/woman-hat.jpg"
 result = agent_executor.invoke({"input":f"这张图片展示了什么？\n {img_url}"})
 print(result)
