@@ -56,4 +56,6 @@ agent = initialize_agent(
 question = """What is the square root of the population of the capital of the
 Country where the Olympic Games were held in 2016?"""
 
+print(agent.agent.llm_chain.prompt.template)
+
 agent.invoke({"input":question})

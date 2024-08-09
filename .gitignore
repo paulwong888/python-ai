@@ -1,2 +1,5 @@
 test-python/langchain/my_config.py
 .env
+test-python/stock_crew/__pycache__/agents.cpython-312.pyc
+test-python/stock_crew/__pycache__/tasks.cpython-312.pyc
+test-python/stock_crew/tools/__pycache__/search.cpython-312.pyc
