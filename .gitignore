@@ -3,3 +3,4 @@ test-python/langchain/my_config.py
 test-python/stock_crew/__pycache__/agents.cpython-312.pyc
 test-python/stock_crew/__pycache__/tasks.cpython-312.pyc
 test-python/stock_crew/tools/__pycache__/search.cpython-312.pyc
+test-python/langchain/image_caption_tools/__pycache__/image_caption_tool.cpython-312.pyc

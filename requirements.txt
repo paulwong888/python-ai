@@ -13,3 +13,6 @@ langchainhub
 wikipedia
 crewai
 crewai[tool]
+torch
+transformers
+Pillow
