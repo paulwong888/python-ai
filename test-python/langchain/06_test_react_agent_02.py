@@ -19,9 +19,8 @@ def check_time(format: str = "%Y-%m-%d %H:%M:%S"):
     formatted_time = current_time.strftime(format)
     return formatted_time
 
-tools = load_tools(tool_names=["wikipedia"])
-tools.append(check_time)
-tools.append(image_caption)
+tools = [check_time, image_caption]
+tools.extend(load_tools(tool_names=["wikipedia"]))
 
 agent = create_react_agent(
     llm=llm,
