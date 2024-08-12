@@ -5,3 +5,8 @@ test-python/stock_crew/__pycache__/tasks.cpython-312.pyc
 test-python/stock_crew/tools/__pycache__/search.cpython-312.pyc
 test-python/langchain/image_caption_tools/__pycache__/image_caption_tool.cpython-312.pyc
 test-python/video_script_generator/__pycache__/utils.cpython-312.pyc
+.DS_Store
+stock_crew/__pycache__/agents.cpython-312.pyc
+stock_crew/__pycache__/tasks.cpython-312.pyc
+stock_crew/tools/__pycache__/search.cpython-312.pyc
+video_script_generator/__pycache__/utils.cpython-312.pyc
