@@ -8,7 +8,7 @@ load_dotenv()
 st.title("视频脚本生成器")
 
 with st.sidebar:
-    openai_api_key = st.text_input("请输入OpenAi API密钥：", type="password", value=os.getenv("OPENAI_API_KEY"))
+    openai_api_key = st.text_input("请输入OpenAi API密钥：", type="password")
     st.markdown("[获取OpenAi API密钥](https://platform.openai.com/account/api-key)")
 
 subject = st.text_input("请输入视频的主题", value="sora模型")
@@ -21,8 +21,9 @@ submit = st.button("生成脚本")
 
 if submit:
     if not openai_api_key:
-        st.info("请输入OpenAi API密钥")
-        st.stop()
+        openai_api_key=os.getenv("OPENAI_API_KEY")
+        # st.info("请输入OpenAi API密钥")
+        # st.stop()
     if not subject:
         st.info("请输入视频的主题")
         st.stop()
