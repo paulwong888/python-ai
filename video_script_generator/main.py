@@ -5,7 +5,8 @@ import os
 
 load_dotenv()
 
-st.title("视频脚本生成器(Present by Paul Wong)")
+st.title("视频脚本生成器")
+st.subheader("Present by Paul Wong")
 
 with st.sidebar:
     openai_api_key = st.text_input("请输入OpenAi API密钥：", type="password")
