@@ -11,3 +11,7 @@ stock_crew/__pycache__/tasks.cpython-312.pyc
 stock_crew/tools/__pycache__/search.cpython-312.pyc
 video_script_generator/__pycache__/utils.cpython-312.pyc
 .DS_Store
+xiaohongshu_generator/__pycache__/prompt_template.cpython-312.pyc
+xiaohongshu_generator/__pycache__/utils.cpython-312.pyc
+xiaohongshu_generator/__pycache__/xiaohongshu_model.cpython-312.pyc
+.DS_Store
