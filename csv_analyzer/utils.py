@@ -43,6 +43,7 @@ def dataframe_agent(openai_api_key, df, query):
                                           verbose=True)
     prompt = PROMPT_TEMPLATE + query
     response = agent.invoke({"input": prompt})
+    print(response["output"])
     response_dict = json.loads(response["output"])
     return response_dict
 
