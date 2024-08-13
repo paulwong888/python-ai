@@ -16,3 +16,6 @@ xiaohongshu_generator/__pycache__/utils.cpython-312.pyc
 xiaohongshu_generator/__pycache__/xiaohongshu_model.cpython-312.pyc
 .DS_Store
 csv_analyzer/__pycache__/utils.cpython-312.pyc
+cloned_chatgpt/__pycache__/utils.cpython-312.pyc
+commons/__pycache__/__init__.cpython-312.pyc
+commons/__pycache__/sidebar.cpython-312.pyc

@@ -4,20 +4,9 @@ import pandas as pd
 from dotenv import load_dotenv
 from utils import dataframe_agent
 from streamlit.runtime.uploaded_file_manager import UploadedFile
+from commons.sidebar import display_sidebar, remove_button
 
-
-# Add custom CSS to hide the GitHub icon
-st.markdown(
-    r"""
-    <style>
-    #MainMenu {visibility: hidden;}
-    [data-testid="stActionButton"] {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
-    """, 
-    unsafe_allow_html=True
-)
-
+remove_button()
 load_dotenv()
 
 def create_char(response_dict):
@@ -35,9 +24,7 @@ def create_char(response_dict):
 st.title("💡 CSV数据分析智能工具")
 st.subheader("Present by Paul Wong")
 
-with st.sidebar:
-    openai_api_key = st.text_input("请输入OpenAI API密钥： ", type="password")
-    st.markdown("[获取OpenAi API密钥](https://platform.openai.com/account/api-key)")
+openai_api_key = display_sidebar()
 
 data = st.file_uploader("上传你的数据文件 (CSV格式)", type="csv")
 sample_data_button = st.button("使用样例数据文件")
