@@ -12,7 +12,6 @@ st.markdown(
     <style>
     #MainMenu {visibility: hidden;}
     [data-testid="stActionButton"] {visibility: hidden;}
-    .viewerBadge_container__r5tak styles_viewerBadge__CvC9N {visibility: hidden;}
     footer {visibility: hidden;}
     </style>
     """, 

@@ -6,6 +6,17 @@ from utils import generate_xiaohongshu
 from utils import generate_xiaohongshu
 
 load_dotenv()
+# Add custom CSS to hide the GitHub icon
+st.markdown(
+    r"""
+    <style>
+    #MainMenu {visibility: hidden;}
+    [data-testid="stActionButton"] {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
 
 st.title("爆款小红书AI写作助手")
 st.subheader("Present by Paul Wong")

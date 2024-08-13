@@ -4,6 +4,17 @@ from utils import generate_script
 import os
 
 load_dotenv()
+# Add custom CSS to hide the GitHub icon
+st.markdown(
+    r"""
+    <style>
+    #MainMenu {visibility: hidden;}
+    [data-testid="stActionButton"] {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
 
 st.title("视频脚本生成器")
 st.subheader("Present by Paul Wong")
