@@ -4,6 +4,9 @@ import pandas as pd
 from dotenv import load_dotenv
 from utils import dataframe_agent
 from streamlit.runtime.uploaded_file_manager import UploadedFile
+from init_path import init
+
+init()
 from commons.sidebar import display_sidebar, remove_button
 
 remove_button()

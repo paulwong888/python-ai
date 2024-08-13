@@ -14,7 +14,7 @@ def get_chat_response(prompt, memory, openai_api_key):
     return response["response"]
 
 # from langchain.memory import ConversationBufferMemory
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 # import os
 
 # load_dotenv()

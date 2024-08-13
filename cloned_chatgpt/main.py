@@ -4,6 +4,14 @@ from langchain.memory import ConversationBufferMemory
 from utils import get_chat_response
 from dotenv import load_dotenv
 
+from init_path import init
+
+# dir_path = os.path.dirname(os.path.realpath(__file__))
+# print(dir_path)
+# parent_dir_path = os.path.abspath(os.path.join(dir_path, os.pardir))
+# print(parent_dir_path)
+# sys.path.insert(0, parent_dir_path)
+init()
 from commons.sidebar import display_sidebar, remove_button
 
 remove_button()
