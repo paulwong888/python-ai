@@ -41,7 +41,7 @@ if "df" in st.session_state:
         st.dataframe(st.session_state["df"])
 
 query = st.text_area(
-    "请输入你关于以上表格的问题，或数据提取请求，或可视化要求(支持散点图，折线图，条形图)， 如/绘制出职业的条形图/绘制出客户年收入和年龄之间的散点图",
+    "请输入你关于以上表格的问题，或数据提取请求，或可视化要求(支持散点图，折线图，条形图)， 如 请提取年龄大于30的数据 / 绘制出职业的条形图 / 绘制出客户年收入和年龄之间的散点图",
     value="请提取年龄大于30的数据"
 )
 button = st.button("生成回答")
@@ -58,15 +58,15 @@ if button:
     if "df" in st.session_state:
         with st.spinner("AI正在思考中，请稍等..."):
             response_dict = dataframe_agent(openai_api_key, st.session_state["df"], query)
-            if "answer" in response_dict:
-                st.write(response_dict["answer"])
-            elif "table" in response_dict:
-                st.table(
-                    pd.DataFrame(
-                        response_dict["table"]["data"],
-                        columns=response_dict["table"]["columns"]
-                    )
+        if "answer" in response_dict:
+            st.write(response_dict["answer"])
+        elif "table" in response_dict:
+            st.table(
+                pd.DataFrame(
+                    response_dict["table"]["data"],
+                    columns=response_dict["table"]["columns"]
                 )
-            else:
-                create_char(response_dict)
+            )
+        else:
+            create_char(response_dict)
         
