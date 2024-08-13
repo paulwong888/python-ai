@@ -11,6 +11,7 @@ st.markdown(
     r"""
     <style>
     #MainMenu {visibility: hidden;}
+    [data-testid="stActionButton"] {visibility: hidden;}
     footer {visibility: hidden;}
     </style>
     """, 
