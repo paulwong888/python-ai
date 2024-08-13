@@ -12,7 +12,7 @@ st.markdown(
     <style>
     #MainMenu {visibility: hidden;}
     [data-testid="stActionButton"] {visibility: hidden;}
-    [data-testid="setHeader" class=st-emotion-cache-h4xjwg ezrtsby2] {visibility: hidden;}
+    [data-testid="setHeader"] {visibility: hidden;}
     footer {visibility: hidden;}
     </style>
     """, 
