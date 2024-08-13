@@ -19,6 +19,15 @@ def create_char(response_dict):
     if chart_type == "scatter":
         st.scatter_chart(df_data)
 
+
+# Add custom CSS to hide the GitHub icon
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 st.title("💡 CSV数据分析智能工具")
 st.subheader("Present by Paul Wong")
 
