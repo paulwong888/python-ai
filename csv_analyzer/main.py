@@ -5,6 +5,19 @@ from dotenv import load_dotenv
 from utils import dataframe_agent
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
+
+# Add custom CSS to hide the GitHub icon
+st.markdown(
+    """
+    <style>
+    #MainMenu {visibility: hidden;}
+    #GithubIcon {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
+
 load_dotenv()
 
 def create_char(response_dict):
@@ -18,19 +31,6 @@ def create_char(response_dict):
         st.line_chart(df_data)
     if chart_type == "scatter":
         st.scatter_chart(df_data)
-
-
-# Add custom CSS to hide the GitHub icon
-st.markdown(
-    """
-    <style>
-    #MainMenu {visibility: hidden;}
-    #GithubIcon {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
-    """, 
-    unsafe_allow_html=True
-)
 
 st.title("💡 CSV数据分析智能工具")
 st.subheader("Present by Paul Wong")
