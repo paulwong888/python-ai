@@ -19,7 +19,7 @@ def create_char(response_dict):
     if chart_type == "scatter":
         st.scatter_chart(df_data)
 
-st.title("CSV数据分析智能工具")
+st.title("💡 CSV数据分析智能工具")
 st.subheader("Present by Paul Wong")
 
 with st.sidebar:
