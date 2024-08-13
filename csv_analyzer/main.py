@@ -8,7 +8,7 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 
 # Add custom CSS to hide the GitHub icon
 st.markdown(
-    """
+    r"""
     <style>
     #MainMenu {visibility: hidden;}
     .stActionButtonIcon {visibility: hidden;}
