@@ -11,8 +11,6 @@ st.markdown(
     r"""
     <style>
     #MainMenu {visibility: hidden;}
-    .stToolbarActions {visibility: hidden;}
-    #GithubIcon {visibility: hidden;}
     footer {visibility: hidden;}
     </style>
     """, 
