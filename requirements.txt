@@ -19,3 +19,4 @@ Pillow
 requests-file
 google-search-results
 streamlit
+matplotlib
