@@ -24,6 +24,7 @@ def create_char(response_dict):
 hide_github_icon = """
 <style>
 #MainMenu {visibility: hidden;}
+#GithubIcon {visibility: hidden;}
 footer {visibility: hidden;}
 </style>
 """
