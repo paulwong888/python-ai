@@ -4,12 +4,13 @@ import os
 import streamlit as st
 from langchain.memory import ConversationBufferMemory
 from dotenv import load_dotenv
-from commons.sidebar import display_sidebar
+from commons.sidebar import display_sidebar, remove_button
 from utils import qa_agent
 
 st.title("AI智能PDF问答工具")
 
 openai_api_key = display_sidebar()
+remove_button()
 load_dotenv()
 
 if "memory" not in st.session_state:
