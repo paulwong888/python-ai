@@ -1,5 +1,6 @@
 test-python/langchain/my_config.py
 .env
+.venv
 test-python/stock_crew/__pycache__/agents.cpython-312.pyc
 test-python/stock_crew/__pycache__/tasks.cpython-312.pyc
 test-python/stock_crew/tools/__pycache__/search.cpython-312.pyc
@@ -20,3 +21,5 @@ cloned_chatgpt/__pycache__/utils.cpython-312.pyc
 commons/__pycache__/__init__.cpython-312.pyc
 commons/__pycache__/sidebar.cpython-312.pyc
 cloned_chatgpt/__pycache__/init_path.cpython-312.pyc
+pdf_qa_tool/__pycache__
+temp.pdf

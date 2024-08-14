@@ -15,7 +15,7 @@ crewai
 crewai[tool]
 torch
 transformers
-Pillow
+pillow
 requests-file
 google-search-results
 streamlit
