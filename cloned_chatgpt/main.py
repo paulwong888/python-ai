@@ -17,7 +17,7 @@ from commons.sidebar import display_sidebar, remove_button
 remove_button()
 load_dotenv()
 
-st.title("克隆ChatGPT")
+st.title("💬 克隆ChatGPT")
 
 openai_api_key = display_sidebar()
 

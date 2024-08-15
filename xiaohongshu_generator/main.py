@@ -18,7 +18,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("爆款小红书AI写作助手")
+st.title("爆款小红书AI写作助手 ✏️")
 st.subheader("Present by Paul Wong")
 
 with st.sidebar:
