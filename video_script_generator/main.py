@@ -16,7 +16,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("视频脚本生成器")
+st.title("🎬 视频脚本生成器")
 st.subheader("Present by Paul Wong")
 
 with st.sidebar:
@@ -26,7 +26,7 @@ with st.sidebar:
 subject = st.text_input("💡 请输入视频的主题", value="sora模型")
 video_length = st.number_input("⏱️ 请输入视频的大致时长(单位：分钟)", min_value=0.1, step=0.1, value=1.0)
 creativity = st.slider(
-    "请输入视频脚本的创造力(数字小说明更严重，数字大说明更多样)",
+    "✨ 请输入视频脚本的创造力(数字小说明更严重，数字大说明更多样)",
     min_value=0.1, max_value=1.0, value=0.2, step=0.1
 )
 submit = st.button("生成脚本")
