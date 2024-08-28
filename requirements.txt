@@ -21,3 +21,4 @@ google-search-results
 streamlit
 matplotlib
 datasets
+transformers
