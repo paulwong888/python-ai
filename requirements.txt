@@ -22,3 +22,6 @@ streamlit
 matplotlib
 datasets
 transformers
+peft
+torchtext
+scikit-learn

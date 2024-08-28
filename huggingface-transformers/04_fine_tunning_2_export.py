@@ -6,7 +6,7 @@ model_name = "TinyLlama/TinyLlama-1.1B-Chat-v0.6"
 adapter_name = "fine_tuned_model"
 # new_model = ""
 
-tokenizer = AutoTokenize.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
 origin_model = AutoModelForCausalLM.from_pretrained(model_name)
 peft_model = PeftModelForCausalLM.from_pretrained(model=origin_model, model_id=adapter_name)
 
