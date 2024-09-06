@@ -25,3 +25,5 @@ transformers
 peft
 torchtext
 scikit-learn
+xlrd
+openpyxl
