@@ -24,13 +24,13 @@ def create_char(response_dict):
     if chart_type == "scatter":
         st.scatter_chart(df_data)
 
-st.title("💡 CSV数据分析智能工具")
+st.title("💡 CSV資料分析智慧工具")
 st.subheader("Present by Paul Wong")
 
 openai_api_key = display_sidebar()
 
-data = st.file_uploader("上传你的数据文件 (CSV格式)", type="csv")
-sample_data_button = st.button("使用样例数据文件")
+data = st.file_uploader("上傳你的資料檔案(CSV格式)", type="csv")
+sample_data_button = st.button("使用樣例資料檔案")
 
 if data:
     print(type(data))
@@ -40,12 +40,12 @@ elif sample_data_button:
     st.session_state["df"] = pd.read_csv(sample_data)
 
 if "df" in st.session_state:
-    with st.expander("原始数据"):
+    with st.expander("原始數據"):
         st.dataframe(st.session_state["df"])
 
 query = st.text_area(
-    "请输入你关于以上表格的问题，或数据提取请求，或可视化要求(支持散点图，折线图，条形图)， 如 请提取年龄大于30的数据 / 绘制出职业的条形图 / 绘制出客户年收入和年龄之间的散点图",
-    value="绘制出职业的条形图"
+    "請輸入你關於以上表格的問題，或數據選取請求，或視覺化要求(支持散點圖，折線圖，條形圖)，如請選取年齡大於30的數據 / 繪製出職業的條形圖 / 繪製出客戶年收入和年齡之間的散點圖",
+    value="繪製出職業的條形圖"
 )
 button = st.button("生成回答")
 
@@ -53,13 +53,13 @@ if button:
     if not openai_api_key:
         openai_api_key=os.getenv("OPENAI_API_KEY")
     if "df" not in st.session_state:
-        st.info("请先上传数据文件")
+        st.info("請先上傳資料檔案")
         st.stop()
     if not query:
-        st.info("请输入要统计的问题")
+        st.info("請輸入要統計的問題")
         st.stop()
     if "df" in st.session_state:
-        with st.spinner("AI正在思考中，请稍等..."):
+        with st.spinner("AI正在思考中，請稍等..."):
             response_dict = dataframe_agent(openai_api_key, st.session_state["df"], query)
         if "answer" in response_dict:
             st.write(response_dict["answer"])
