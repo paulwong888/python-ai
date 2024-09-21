@@ -24,7 +24,7 @@ def create_char(response_dict):
     if chart_type == "scatter":
         st.scatter_chart(df_data)
 
-st.title("💡 CSV資料分析智慧工具")
+st.title("💡 CSV資料分析智能工具")
 st.subheader("Present by Paul Wong")
 
 openai_api_key = display_sidebar()
