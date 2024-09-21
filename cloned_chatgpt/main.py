@@ -17,14 +17,14 @@ from commons.sidebar import display_sidebar, remove_button
 remove_button()
 load_dotenv()
 
-st.title("💬 克隆ChatGPT")
+st.title("💬 尅隆ChatGPT")
 
 openai_api_key = display_sidebar()
 
 if "memory" not in st.session_state:
     st.session_state["memory"] = ConversationBufferMemory(return_messages=True)
     st.session_state["messages"] = [
-        {"role": "ai", "content": "您好，我是您的AI助手，有什么可以帮到您？"}
+        {"role": "ai", "content": "您好，我是您的AI助手，有什麼可以幫到您？"}
     ]
 
 for message in st.session_state["messages"]:
@@ -40,7 +40,7 @@ if prompt:
     )
     st.chat_message("human").write(prompt)
 
-    with st.spinner("AI正在思考中，请稍等..."):
+    with st.spinner("AI正在思考中，請稍等..."):
         response = get_chat_response(prompt, st.session_state["memory"], openai_api_key)
 
     st.session_state["messages"].append(
