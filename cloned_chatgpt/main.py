@@ -18,6 +18,7 @@ remove_button()
 load_dotenv()
 
 st.title("💬 尅隆ChatGPT")
+st.subheader("Present by Paul Wong")
 
 openai_api_key = display_sidebar()
 

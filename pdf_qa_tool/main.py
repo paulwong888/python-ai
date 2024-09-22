@@ -8,6 +8,7 @@ from commons.sidebar import display_sidebar, remove_button
 from utils import qa_agent
 
 st.title("📑 AI智能PDF問答工具")
+st.subheader("Present by Paul Wong")
 
 openai_api_key = display_sidebar()
 remove_button()
