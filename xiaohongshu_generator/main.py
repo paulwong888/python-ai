@@ -1,3 +1,5 @@
+from init_path import init
+init()
 import streamlit as st
 from dotenv import load_dotenv
 import os

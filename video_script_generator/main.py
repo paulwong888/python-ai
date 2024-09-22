@@ -1,27 +1,18 @@
+from init_path import init
+init()
 import streamlit as st
 from dotenv import load_dotenv
 from utils import generate_script
+from commons.sidebar import display_sidebar, remove_button
 import os
 
+openai_api_key = display_sidebar()
+remove_button()
 load_dotenv()
-# Add custom CSS to hide the GitHub icon
-st.markdown(
-    r"""
-    <style>
-    #MainMenu {visibility: hidden;}
-    [data-testid="stActionButton"] {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
-    """, 
-    unsafe_allow_html=True
-)
 
 st.title("🎬 視頻腳本生成器")
 st.subheader("Present by Paul Wong")
 
-with st.sidebar:
-    openai_api_key = st.text_input("請輸入OpenAi API密钥：", type="password")
-    st.markdown("[獲取OpenAi API密钥](https://platform.openai.com/account/api-key)")
 
 subject = st.text_input("💡 請輸入視頻的主題", value="sora模型")
 video_length = st.number_input("⏱️ 請輸入視頻的大致時長(組織：分鐘)", min_value=0.1, step=0.1, value=1.0)
