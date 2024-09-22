@@ -4,12 +4,13 @@ import os
 from utils import generate_xiaohongshu
 from commons.sidebar import display_sidebar, remove_button
 
-openai_api_key = display_sidebar()
-remove_button()
-load_dotenv()
 
 st.title("爆款小紅書AI寫作助手 ✏️")
 st.subheader("Present by Paul Wong")
+
+openai_api_key = display_sidebar()
+remove_button()
+load_dotenv()
 
 topic = st.text_input("主題", value="大模型")
 submit = st.button("開始寫作")
