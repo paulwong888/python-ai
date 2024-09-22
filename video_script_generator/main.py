@@ -16,7 +16,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("🎬 视频脚本生成器")
+st.title("🎬 視頻腳本生成器")
 st.subheader("Present by Paul Wong")
 
 with st.sidebar:
