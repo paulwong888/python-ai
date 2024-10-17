@@ -27,3 +27,4 @@ torchtext
 scikit-learn
 xlrd
 openpyxl
+cohere
