@@ -23,3 +23,11 @@ install packages:
 pip install python-dotenv
 
 'Droid Sans Mono', 'monospace', monospace
+
+anaconda:
+    conda env export > environment.yml
+    conda create --name first-ai python=3.12
+    conda env create -f environment.yml --name target_env_name
+    conda env update -f environment.yml
+    conda env update -n target_env_name -f environment.yml
+    conda install langchain -c conda-forge
