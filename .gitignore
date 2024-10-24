@@ -6,3 +6,5 @@ test-python/langchain/my_config.py
 __pycache__
 salary.csv
 salary.xlsx
+mnist/
+mnist.pth
