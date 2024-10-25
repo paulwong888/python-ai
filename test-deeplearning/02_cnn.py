@@ -38,9 +38,9 @@
 """
 
 
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+from keras.api.datasets import mnist
+from keras.api.models import Sequential
+from keras.api.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
 # 加载数据
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
