@@ -40,8 +40,8 @@ ResNet 通过引入残差块（residual block）来解决这些问题。
 
 """
 
-from keras.layers import Input, Conv2D, BatchNormalization, Activation, Add
-from keras.models import Model
+from keras.api.layers import Input, Conv2D, BatchNormalization, Activation, Add, AveragePooling2D, Dense, Flatten, MaxPooling2D
+from keras.api.models import Model
 
 def residual_block(input_tensor, filters, stride=1):
     x = Conv2D(filters, (3, 3), strides=stride, padding='same')(input_tensor)

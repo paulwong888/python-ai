@@ -129,8 +129,8 @@ def train(model, optimizer, criterion, src_data, tgt_data, batch_size, num_epoch
             src = src_data[i:i + batch_size]
             tgt = tgt_data[i:i + batch_size]
             optimizer.zero_grad()
-            src_mask = (src!= 0).       (1).       (2)
-            tgt_mask = (tgt!= 0).       (1).       (2)
+            src_mask = (src!= 0).unsqueeze(1).unsqueeze(2)
+            tgt_mask = (tgt!= 0).unsqueeze(1).unsqueeze(2)
             output = model(src, tgt, src_mask, tgt_mask)
             loss = criterion(output.view(-1, output.size(-1)), tgt.view(-1))
             loss.backward()
