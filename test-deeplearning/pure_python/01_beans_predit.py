@@ -28,3 +28,4 @@ for _ in range(100):
 y_pre = w * xs
 plt.plot(xs, y_pre)
 plt.show()
+plt.pause()

@@ -1,3 +1,5 @@
+from init_path import one_parent_init
+one_parent_init()
 import commons.my_dataset as my_dataset
 import numpy as np
 from keras import Sequential
