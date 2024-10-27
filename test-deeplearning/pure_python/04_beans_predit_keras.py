@@ -23,7 +23,8 @@ Xs = np.random.rand(num_samples, num_features)
 ys = np.random.rand(num_samples, num_features)
 
 m = 5000
-xs, ys = get_data_set(m) 
+n = 1
+xs, ys = get_data_set(m, n) 
 
 
 
@@ -42,7 +43,8 @@ model = Sequential()
 
 # 添加一个Dense层，输入维度为1（因为我们只有一个特征），输出维度为1
 # 激活函数使用linear，因为我们这里假设是一个回归问题
-model.add(Dense(1, activation="linear", input_dim=1))
+# model.add(Dense(1, activation="linear", input_dim=1))
+model.add(Dense(3, activation=None, input_dim=1))
 
 # 编译模型，使用mean_squared_error作为损失函数，adam优化器
 model.compile(loss="mse", optimizer="adam", metrics=['accuracy'])
