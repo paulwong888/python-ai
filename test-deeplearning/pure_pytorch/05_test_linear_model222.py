@@ -11,8 +11,8 @@ class LR(nn.Module):
         self.y = y
         self.linear = nn.Linear(in_features=in_features, out_features=out_features)
 
-    def forward(self):
-        pred = self.linear(self.X)
+    def forward(self, X_part):
+        pred = self.linear(X_part)
         return pred
     
     def get_params(self):
@@ -20,7 +20,7 @@ class LR(nn.Module):
         return (w.item(), b.item())
 
     def show_fit(self, title):
-        plt.title = title
+        plt.title(title)
         plt.scatter(X, y)
 
         (w, b) = self.get_params()
@@ -43,8 +43,8 @@ class LR(nn.Module):
 
         for i in range(epchs):
             for (inputs, outputs) in data_loader:
-                pre_y = self.forward()
-                loss = loss_fn(pre_y, y)
+                pre_y = self.forward(inputs)
+                loss = loss_fn(pre_y, outputs)
 
                 optimizer.zero_grad()
                 loss.backward()
