@@ -26,10 +26,12 @@ class Classify(nn.Module):
     
     def show_fit(self, title):
         plt.title(title)
+        X_temp = self.X_numpy
+        y_temp = self.y.view(100).numpy()
         # X[y==0, 0] 返回的是一个一维数组，包含了所有属于第一个簇（标签为0）的数据点的x坐标
-        plt.scatter(self.X_numpy[self.y_numpy==0, 0], self.X_numpy[self.y_numpy==0, 1])
+        plt.scatter(X_temp[y_temp==0, 0], X_temp[y_temp==0, 1])
         # X[y==1, 0] 返回的是一个一维数组，包含了所有属于第一个簇（标签为1）的数据点的x坐标
-        plt.scatter(self.X_numpy[self.y_numpy==1, 0], self.X_numpy[self.y_numpy==1, 1])
+        plt.scatter(X_temp[y_temp==1, 0], X_temp[y_temp==1, 1])
 
         (w1, w2, b1) = self.get_params()
         x1 = np.array([-2.0, 2.0])
@@ -77,7 +79,9 @@ cluster_std参数设置为0.4，表示每个簇的标准差。
 centers = [[-0.5, 0.5], [0.5, -0.5]]
 (X_numpy, y_numpy) = datasets.make_blobs(n_samples=n_pts, random_state=123, centers=centers, cluster_std=0.4)
 print(X_numpy, y_numpy)
-            
+
+X = torch.Tensor(X_numpy)
+y = torch.Tensor(y_numpy.reshape(100, 1))
 model = Classify(2,1, X_numpy, y_numpy)
 model.show_fit("Initial Model")
 
