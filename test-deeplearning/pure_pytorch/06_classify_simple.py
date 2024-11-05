@@ -4,16 +4,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from torch.utils.data import TensorDataset, DataLoader
+from torch import Tensor
 
 class Classify(nn.Module):
-    def __init__(self, input_size, output_size, X, y):
+    def __init__(self, input_size, output_size, X: Tensor, y: Tensor):
         super().__init__()
         self.linear = nn.Linear(in_features=input_size, out_features=output_size)
         self.X = X
         self.y = y
+        print(y.size()[0])
     
     def forward(self, X_part):
-        pred_y = torch.sigmoid(self.linear(X_part))
+        pred_y = torch.sigmoid(self.linear.forward(X_part))
         return pred_y
     
     def get_params(self):
