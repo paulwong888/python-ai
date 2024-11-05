@@ -6,13 +6,13 @@ from sklearn import datasets
 from torch.utils.data import TensorDataset, DataLoader
 
 class Classify(nn.Module):
-    def __init__(self, input_size, output_size, X, y):
+    def __init__(self, input_size, output_size, X_numpy, y_numpy):
         super().__init__()
         self.linear = nn.Linear(in_features=input_size, out_features=output_size)
-        self.X = X
-        self.y = y
-        self.X_data = torch.Tensor(X)
-        self.y_data = torch.Tensor(y.reshape(100, 1))
+        # self.X = X
+        # self.y = y
+        self.X = torch.Tensor(X_numpy)
+        self.y = torch.Tensor(y_numpy.reshape(100, 1))
     
     def forward(self, X_part):
         pred_y = torch.sigmoid(self.linear(X_part))
@@ -27,9 +27,9 @@ class Classify(nn.Module):
     def show_fit(self, title):
         plt.title(title)
         # X[y==0, 0] 返回的是一个一维数组，包含了所有属于第一个簇（标签为0）的数据点的x坐标
-        plt.scatter(self.X[y==0, 0], self.X[y==0, 1])
+        plt.scatter(self.X.numpy()[y==0, 0], self.X.numpy()[y==0, 1])
         # X[y==1, 0] 返回的是一个一维数组，包含了所有属于第一个簇（标签为1）的数据点的x坐标
-        plt.scatter(self.X[y==1, 0], self.X[y==1, 1])
+        plt.scatter(self.X.numpy()[y==1, 0], self.X.numpy()[y==1, 1])
 
         (w1, w2, b1) = self.get_params()
         x1 = np.array([-2.0, 2.0])
@@ -38,7 +38,7 @@ class Classify(nn.Module):
         plt.show()
 
     def train(self, epochs, batch_size):
-        data_set = TensorDataset(self.X_data, self.y_data)
+        data_set = TensorDataset(self.X, self.y)
         data_loader = DataLoader(data_set, batch_size=batch_size, shuffle=True)
 
         loss_fn = nn.BCELoss()
@@ -58,6 +58,13 @@ class Classify(nn.Module):
         plt.plot(range(epochs), losses)
         plt.show()
 
+    def predit(self, X) -> int:
+        pre_y = self.forward(X)
+        if pre_y >= 0.5:
+            return 1
+        else:
+            return 0
+
 n_pts = 100
 
 """
@@ -68,14 +75,22 @@ random_state参数设置为123以确保结果的可重复性，
 cluster_std参数设置为0.4，表示每个簇的标准差。
 """
 centers = [[-0.5, 0.5], [0.5, -0.5]]
-(X, y) = datasets.make_blobs(n_samples=n_pts, random_state=123, centers=centers, cluster_std=0.4)
-
-
-print(X, y)
-
+(X_numpy, y_numpy) = datasets.make_blobs(n_samples=n_pts, random_state=123, centers=centers, cluster_std=0.4)
+print(X_numpy, y_numpy)
             
-model = Classify(2,1, X, y)
+model = Classify(2,1, X_numpy, y_numpy)
 model.show_fit("Initial Model")
 
 model.train(1000, 100)
+model.show_fit("Trained Model")
+
+point1 = torch.tensor([1.0, -1.0])
+point2 = torch.tensor([-1.0, 1.0])
+print(f"Red point positive probalility = {model.forward(point1).item()}")
+print(f"Black point positive probalility = {model.forward(point2).item()}")
+print(f"Red point in class {model.predit(point1)}")
+print(f"Black point in class {model.predit(point2)}")
+
+plt.plot(point1.numpy()[0], point1.numpy()[1], "ro")
+plt.plot(point2.numpy()[0], point2.numpy()[1], "ko")
 model.show_fit("Trained Model")
