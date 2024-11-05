@@ -9,8 +9,8 @@ class Classify(nn.Module):
     def __init__(self, input_size, output_size, X_numpy, y_numpy):
         super().__init__()
         self.linear = nn.Linear(in_features=input_size, out_features=output_size)
-        # self.X = X
-        # self.y = y
+        self.X_numpy = X_numpy
+        self.y_numpy = y_numpy
         self.X = torch.Tensor(X_numpy)
         self.y = torch.Tensor(y_numpy.reshape(100, 1))
     
@@ -27,9 +27,9 @@ class Classify(nn.Module):
     def show_fit(self, title):
         plt.title(title)
         # X[y==0, 0] 返回的是一个一维数组，包含了所有属于第一个簇（标签为0）的数据点的x坐标
-        plt.scatter(self.X.numpy()[y==0, 0], self.X.numpy()[y==0, 1])
+        plt.scatter(self.X_numpy[self.y_numpy==0, 0], self.X_numpy[self.y_numpy==0, 1])
         # X[y==1, 0] 返回的是一个一维数组，包含了所有属于第一个簇（标签为1）的数据点的x坐标
-        plt.scatter(self.X.numpy()[y==1, 0], self.X.numpy()[y==1, 1])
+        plt.scatter(self.X_numpy[self.y_numpy==1, 0], self.X_numpy[self.y_numpy==1, 1])
 
         (w1, w2, b1) = self.get_params()
         x1 = np.array([-2.0, 2.0])
