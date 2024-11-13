@@ -64,7 +64,8 @@ class ClassifyDnn(nn.Module):
             losses.append(train_loss)
             # losses.append(loss.item())
             # x = x @ x
-            print(f"epochs: {i} loss {loss.item():.4f}")
+            # print(f"epochs: {i} loss {loss.item():.4f}")
+            print(f"epochs: {i} loss {train_loss:.4f}")
 
         plt.plot(range(epochs), losses)
         plt.show()
