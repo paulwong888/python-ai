@@ -6,12 +6,14 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
+import requests
+from PIL import Image, ImageOps
 
 class ClassifyMnist(nn.Module):
-    def __init__(self, input_features, H1, H2, output_features, data_loader: DataLoader, val_data_loader: DataLoader):
+    def __init__(self, input_features, H1, H2, output_features):
         super().__init__()
-        self.data_loader = data_loader
-        self.val_data_loader = val_data_loader
+        # self.data_loader = data_loader
+        # self.val_data_loader = val_data_loader
         self.linear1 = nn.Linear(in_features=input_features, out_features=H1)
         self.linear2 = nn.Linear(in_features=H1, out_features=H2)
         self.linear3 = nn.Linear(in_features=H2, out_features=output_features)
@@ -22,7 +24,7 @@ class ClassifyMnist(nn.Module):
         X_part = self.linear3(X_part)
         return X_part
     
-    def train(self):
+    def train(self, data_loader: DataLoader, val_data_loader: DataLoader):
         loss_func = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(self.parameters(), lr=0.0001)
         epochs = 20
@@ -36,11 +38,11 @@ class ClassifyMnist(nn.Module):
             running_corrects = 0.0 
             val_running_loss = 0.0 
             val_running_corrects = 0.0 
-            for (inputs, targets) in self.data_loader:
-                # print(f"inputs.shape : {inputs.shape}")
-                # print(f"before view : {inputs}")
+            for (inputs, targets) in data_loader:
+                print(f"inputs.shape : {inputs.shape}")
+                print(f"before view : {inputs}")
                 inputs = inputs.view(inputs.shape[0], -1)
-                # print(f"after view : {inputs.shape}")
+                print(f"after view : {inputs.shape}")
                 outputs = self.forward(inputs)
                 loss = loss_func(outputs, targets)
                 running_loss += loss.item()
@@ -62,7 +64,7 @@ class ClassifyMnist(nn.Module):
                 optimizer.step()
             else:
                 with torch.no_grad():
-                    for (val_inputs, val_targets) in self.val_data_loader:
+                    for (val_inputs, val_targets) in val_data_loader:
                         val_outputs = self.forward(val_inputs.view(val_inputs.shape[0], -1))
                         val_loss = loss_func(val_outputs, val_targets)
                         (_, val_preds) = torch.max(val_outputs, 1)
@@ -70,18 +72,19 @@ class ClassifyMnist(nn.Module):
                         val_running_loss += val_loss.item()
                         val_running_corrects += torch.sum(val_preds==val_targets)
 
-                epoch_loss = running_loss/len(self.data_loader)
-                epoch_acc = running_corrects/len(self.data_loader)
+                epoch_loss = running_loss/len(data_loader)
+                epoch_acc = running_corrects/len(data_loader)
                 running_history.append(epoch_loss)
                 running_corrects_history.append(epoch_acc)
 
-                val_epoch_loss = val_running_loss/len(self.val_data_loader)
-                val_epoch_acc = val_running_corrects/len(self.val_data_loader)
+                val_epoch_loss = val_running_loss/len(val_data_loader)
+                val_epoch_acc = val_running_corrects/len(val_data_loader)
                 val_running_history.append(val_epoch_loss)
                 val_running_corrects_history.append(val_epoch_acc)
                 print(f"epoch: {i}, loss {epoch_loss:.4f}, acc {epoch_acc:.4f}")
                 print(f"epoch: {i}, val_loss {val_epoch_loss:.4f}, val_acc {val_epoch_acc:.4f}")
                 print()
+                break
         else:
             plt.plot(running_history, label="trainning loss")
             plt.plot(val_running_history, label="validation loss")
@@ -90,6 +93,7 @@ class ClassifyMnist(nn.Module):
             plt.plot(running_corrects_history, label="trainning corrects")
             plt.plot(val_running_corrects_history, label="validation corrects")
             plt.show()
+
 
 def build_data(train: bool, shuffle: bool):
     transform = transforms.Compose([
@@ -104,8 +108,12 @@ def build_data(train: bool, shuffle: bool):
 def img_convert(tensor: Tensor):
     img = tensor.clone().detach().numpy()
     img = img.transpose(1, 2, 0)
-    # print(img.shape)
-    img = img * np.full(3, 0.5, float) + np.full(3, 0.5, float)
+    # print(f"img_convert: img.shape : {img.shape}")
+    # print(f"np.ndarray((0.5, 0.5, 0.5)) : {np.ndarray((0.5, 0.5, 0.5))}")
+    # img = img * np.full(1, 0.5, float) + np.full(1, 0.5, float)
+    # img = img * np.ndarray((0.5, 0.5, 0.5)) + np.ndarray((0.5, 0.5, 0.5))
+    img = img * np.array((0.5, 0.5, 0.5)) + np.array((0.5, 0.5, 0.5))
+    # print(f"img_convert: img.shape : {img.shape}")
     img = img.clip(0, 1)
     return img
 
@@ -125,9 +133,55 @@ def train_test():
     val_data_loader = build_data(train=False, shuffle=False)
     plot_data_set(data_loader)
 
-    model = ClassifyMnist(28 * 28, 125, 64, 10, data_loader, val_data_loader)
-    model.train()
+    model = ClassifyMnist(28 * 28, 125, 64, 10)
+    model.train(data_loader, val_data_loader)
 
+    model.test_web_img()
+
+# @staticmethod
+def test_web_img():
+    transform = transforms.Compose([
+        transforms.Resize((28, 28)),
+        transforms.ToTensor()
+    ])
+    # url = "https://www.dhlabels.com/123-large_default/placas-y-numeros-number-5-100mm.jpg"
+    # url = "https://pic.izihun.com/pic/art_font/2019/01/16/10/png_temp_1570538605460_0534.jpg"
+    url = "https://d00.paixin.com/thumbs/2899123/37531951/staff_1024.jpg"
+    response = requests.get(url=url, stream=True)
+    img = Image.open(response.raw)
+    img = ImageOps.invert(img)
+    img = img.convert("1")
+    img = transform(img)
+    print(img.shape)
+
+    # img = img_convert(img)
+    # plt.imshow(img)
+    # plt.show()
+
+    print(type(img))
+    # print(img.shape)
+    # img = torch.from_numpy(img).float()
+
+
+    print(img.shape)
+    print(img.shape[0])
+    img = img.view(img.shape[0], -1)
+    print(img.shape)
+
+    # img = img.view(784, -1)
+    print(f"5-----> {img.shape}")
+
+    model = ClassifyMnist(28 * 28, 125, 64, 10)
+    output = model.forward(img)
+
+    _, pred = torch.max(output, 1)
+    print(pred)
 
 if __name__ == "__main__":
-    train_test()
+    # train_test()
+    test_web_img()
+
+    a = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]])
+    print(a.shape, a)
+    a = np.array([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]])
+    print(a.shape, a)
