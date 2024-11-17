@@ -98,7 +98,7 @@ class ClassifyMnist(nn.Module):
 def build_data(train: bool, shuffle: bool):
     transform = transforms.Compose([
         transforms.ToTensor(),
-        # transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+        transforms.Normalize((0.5, ), (0.5, )),
     ])
     trainning_data_set = datasets.MNIST("./mnist", train=train, transform=transform)
     print(trainning_data_set)
@@ -127,6 +127,22 @@ def plot_data_set(data_loader: DataLoader):
         plt.imshow(img_convert(inputs[idx]))
         ax.set_title(labels[idx].item())
     plt.show()
+    pass
+
+def plot_validation(val_data_loader: DataLoader, model: ClassifyMnist):
+    dataiter = iter(val_data_loader)
+    (images, labels) = dataiter.__next__()
+    images_ = images.view(images.shape[0], -1)
+    outputs = model.forward(images_)
+    (_, preds) = torch.max(outputs, 1)
+
+    figure = plt.figure(figsize=(25, 4))
+    for i in range(20):
+        ax = figure.add_subplot(2, 10, i+1, xticks=[], yticks=[])
+        plt.imshow(img_convert(images[i]))
+        ax.set_title(f"{str(preds[i].item())}({str(labels[i].item())})", color=("green" if preds[i] == labels[i] else "red"))
+    plt.show()
+
 
 def train_test():
     data_loader = build_data(train=True, shuffle=True)
@@ -136,13 +152,18 @@ def train_test():
     model = ClassifyMnist(28 * 28, 125, 64, 10)
     model.train(data_loader, val_data_loader)
 
-    model.test_web_img()
+    test_web_img()
+
+    plot_validation(val_data_loader=val_data_loader, model=model)
+
+
 
 # @staticmethod
 def test_web_img():
     transform = transforms.Compose([
         transforms.Resize((28, 28)),
-        transforms.ToTensor()
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, ), (0.5, )),
     ])
     # url = "https://www.dhlabels.com/123-large_default/placas-y-numeros-number-5-100mm.jpg"
     # url = "https://pic.izihun.com/pic/art_font/2019/01/16/10/png_temp_1570538605460_0534.jpg"
@@ -154,9 +175,9 @@ def test_web_img():
     img = transform(img)
     print(img.shape)
 
-    # img = img_convert(img)
-    # plt.imshow(img)
-    # plt.show()
+    temp_img = img_convert(img)
+    plt.imshow(temp_img)
+    plt.show()
 
     print(type(img))
     # print(img.shape)
@@ -178,8 +199,8 @@ def test_web_img():
     print(pred)
 
 if __name__ == "__main__":
-    # train_test()
-    test_web_img()
+    train_test()
+    # test_web_img()
 
     a = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]])
     print(a.shape, a)
