@@ -3,6 +3,7 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import numpy as np
 import requests
+import os
 from torch import nn, Tensor
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
@@ -29,8 +30,25 @@ class ClassifyCnn(nn.Module):
 class ClassifyTrainer():
     def __init__(self, model: nn.Module):
         super().__init__()
-        self.device = torch.device("cuda:0,1 " if torch.cuda.is_available() else "cpu")
-        self.model = model.to(self.device)
+        self.set_availbe_cuda()
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # self.model = model.to(self.device)
+        self.model = self.to_device(model)
+
+    def set_availbe_cuda(self):
+        if torch.cuda.is_available():
+            if torch.cuda.device_count() > 1:
+                os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+
+
+    def to_device(self, model: nn.Module):
+        if torch.cuda.is_available():
+            if torch.cuda.device_count() > 1:
+                model = nn.DataParallel(model, device_ids=[0,1])
+            model = model.to("cuda")
+        else:
+            model = model.to("cpu")
+        return model
 
     def build_data(self, train: bool, shuffle: bool):
         transform = transforms.Compose([
@@ -38,7 +56,7 @@ class ClassifyTrainer():
             transforms.ToTensor(),
             transforms.Normalize((0.5,), (0.5,))
         ])
-        dataset = datasets.MNIST("./mnist", download=False, train=train, transform=transform)
+        dataset = datasets.MNIST("./mnist", download=True, train=train, transform=transform)
         data_loader = DataLoader(dataset, batch_size=100, shuffle=shuffle)
         return data_loader
     
@@ -105,12 +123,12 @@ class ClassifyTrainer():
                 epoch_train_running_loss = train_running_loss / len(train_data_loader)
                 epoch_train_running_croorcts = train_running_corrects / len(train_data_loader)
                 train_running_loss_history.append(epoch_train_running_loss)
-                train_running_corrects_history.append(epoch_train_running_croorcts)
+                train_running_corrects_history.append(epoch_train_running_croorcts.cpu().numpy())
 
                 epoch_val_running_loss = val_running_loss / len(val_data_loader)
                 epoch_val_running_croorcts = val_running_corrects / len(val_data_loader)
                 val_running_loss_history.append(epoch_val_running_loss)
-                val_running_corrects_history.append(epoch_val_running_croorcts)
+                val_running_corrects_history.append(epoch_val_running_croorcts.cpu().numpy())
                 print(f"epoch: {i}, loss {epoch_train_running_loss:.4f}, acc {epoch_train_running_croorcts:.4f}", 
                     f"epoch: {i}, val_loss {epoch_val_running_loss:.4f}, val_acc {epoch_val_running_croorcts:.4f}")
         else:
