@@ -40,7 +40,7 @@ class ClassifyMnist(nn.Module):
             val_running_corrects = 0.0 
             for (inputs, targets) in data_loader:
                 print(f"inputs.shape : {inputs.shape}")
-                print(f"before view : {inputs}")
+                # print(f"before view : {inputs}")
                 inputs = inputs.view(inputs.shape[0], -1)
                 print(f"after view : {inputs.shape}")
                 outputs = self.forward(inputs)
@@ -84,7 +84,7 @@ class ClassifyMnist(nn.Module):
                 print(f"epoch: {i}, loss {epoch_loss:.4f}, acc {epoch_acc:.4f}")
                 print(f"epoch: {i}, val_loss {val_epoch_loss:.4f}, val_acc {val_epoch_acc:.4f}")
                 print()
-                break
+                # break
         else:
             plt.plot(running_history, label="trainning loss")
             plt.plot(val_running_history, label="validation loss")
