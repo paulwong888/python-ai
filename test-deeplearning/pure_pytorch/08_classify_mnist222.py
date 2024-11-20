@@ -29,7 +29,7 @@ class ClassifyTrainer():
             transforms.ToTensor(),
             transforms.Normalize((0.5,), (0.5))
         ])
-        dataset = datasets.MNIST("./mnist", train=train, download=False, transform=transform)
+        dataset = datasets.MNIST("./data/mnist", train=train, download=False, transform=transform)
         data_loader = DataLoader(dataset=dataset, batch_size=100, shuffle=shuffle)
         return data_loader
     
