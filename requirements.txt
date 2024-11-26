@@ -28,3 +28,8 @@ scikit-learn
 xlrd
 openpyxl
 cohere
+nltk
+torchtext
+textblob
+gensim
+spacy

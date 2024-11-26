@@ -9,3 +9,4 @@ salary.xlsx
 mnist/
 mnist.pth
 data/
+.DS_Store
