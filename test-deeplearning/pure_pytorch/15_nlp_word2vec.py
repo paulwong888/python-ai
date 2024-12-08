@@ -1,8 +1,13 @@
+import sys
+sys.path.append(".")
 import matplotlib.pyplot as plt
 # from gensim.models import Word2Vec
+import gensim.downloader as api
+import tqdm
 from gensim.models.word2vec import Word2Vec
 from gensim.models.keyedvectors import KeyedVectors
 from sklearn.decomposition import PCA
+from commons.timer import Timer
 
 def train_my_word2vec_model():
     sentences = [
@@ -53,5 +58,13 @@ def test_pretrain_word2vec_model():
     print(model.similarity("post", "book"))
     print(model.most_similar(positive=["woman", "king"], negative="man"))
 
+
+def test_pretrain_word2vec_model2():
+    with Timer():
+        wv: KeyedVectors = api.load("word2vec-google-news-300")
+    print(type(wv))
+    print(wv["king"].shape)
+    print(wv.most_similar("happy"))
+
 if __name__ == "__main__":
-    test_pretrain_word2vec_model()
+    test_pretrain_word2vec_model2()
