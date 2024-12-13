@@ -1,6 +1,10 @@
-from init_path import one_parent_init
-one_parent_init()
-import commons.my_dataset as my_dataset
+# from init_path import one_parent_init
+# one_parent_init()
+import sys
+sys.path.append(".")
+sys.path.append("..")
+print(sys.path)
+from commons import my_dataset
 import numpy as np
 from keras import Sequential
 from keras.api.layers import Dense
