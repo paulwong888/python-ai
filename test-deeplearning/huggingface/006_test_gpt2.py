@@ -21,7 +21,7 @@ dataset = load_dataset("hakurei/open-instruct-v1", split="train")
 dataset.to_pandas().sample(20)
 
 dataset = dataset.map(preprocess, remove_columns=["instruction", "input", "output"])
-dataset.to_pandas().sample(20)#["prompt"][:1]
+print(dataset.to_pandas().sample(20)["prompt"][0:-1])
 
 dataset = dataset.shuffle(seed=42).select(range(100000)).train_test_split(test_size=0.1)
 
@@ -64,7 +64,7 @@ prompt = ""
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def generate_text(prompt):
-    prompt =prompt + tokenizer.eos_token
+    prompt = prompt + tokenizer.eos_token
     inputs = tokenizer.encode(prompt, return_tensors="pt").to(device)
     outputs = model.generate(inputs, max_length=64, pad_token_id=tokenizer.eos_token_id)
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
