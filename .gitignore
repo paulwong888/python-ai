@@ -10,3 +10,5 @@ mnist/
 mnist.pth
 data/
 .DS_Store
+models/
+last_run_prepared/

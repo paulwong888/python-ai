@@ -10,7 +10,7 @@ gc.collect()
 torch.cuda.empty_cache()
 
 # ds = load_dataset("/opt/tool/ai/fine-tunning/LLaMA-Factory/data/MattCoddity/")
-dataset_file_path = "/opt/tool/ai/fine-tunning/LLaMA-Factory/data/MattCoddity/"
+dataset_file_path = "/home/paul/PAUL/work/workspaces/python-ai/huggingface-transformers/data/MattCoddity/"
 # base_model = "meta-llama/Meta-Llama-3-8B-Instruct"
 # base_model = "Qwen/Qwen2-0.5B"
 base_model = "TinyLlama/TinyLlama-1.1B-Chat-v0.6"

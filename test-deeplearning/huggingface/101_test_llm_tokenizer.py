@@ -7,7 +7,7 @@ messages = [
 ]
 
 tokenizer = AutoTokenizer.from_pretrained("facebook/blenderbot-400M-distill")
-tokenizer = AutoTokenizer.from_pretrained("unsloth/mistral-7b-instruct-v0.3")
+# tokenizer = AutoTokenizer.from_pretrained("unsloth/mistral-7b-instruct-v0.3")
 tokenizer = AutoTokenizer.from_pretrained("unsloth/gemma-7b-it")
 tokenizer = AutoTokenizer.from_pretrained("unsloth/llama-3-8b-Instruct")
 
