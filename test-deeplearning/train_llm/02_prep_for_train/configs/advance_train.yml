@@ -1,5 +1,5 @@
 # model params
-base_model: /home/paul/.cache/huggingface/models/unsloth--Meta-Llama-3.1-8B
+base_model: /home/paul/.cache/huggingface/models/unsloth--Meta-Llama-3.1-8B-Instruct
 model_type: LlamaForCausalLM
 tokenizer_type: PreTrainedTokenizerFast
 
@@ -7,7 +7,7 @@ tokenizer_type: PreTrainedTokenizerFast
 datasets:
   - path: jaydenccc/AI_Storyteller_Dataset
     type:
-      system_prompt: ""
+      system_prompt: "You are an amazing storyteller. From the following synopsis, create an engaging story."
       field_system: system
       field_instruction: synopsis
       field_output: short_story
@@ -17,7 +17,7 @@ datasets:
 output_dir: ./models/Llama3_Storyteller
 
 # model params
-sequence_length: 512
+sequence_length: 1024
 bf16: auto
 bf32: false
 
@@ -32,14 +32,19 @@ logging_steps: 1
 # LoRA
 adapter: lora
 
-lora_r: 8
+lora_r: 32
 lora_alpha: 16
 lora_dropout: 0.05
 
 lora_target_linear: true
 
 # Gradient Accumulation
-gradient_accumulation_steps: 4
+gradient_accumulation_steps: 1
+
+# Gradient Checkpointing:
+gradient_checkpointing: true
+
+flash_attention: true
 
 # Low Precision
-load_in_8bit: true
+# load_in_8bit: true
