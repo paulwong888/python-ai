@@ -5,19 +5,19 @@
 base_model: /root/autodl-fs/paul/Llama-3.3-70B-Instruct
 
 # dataset params
-# datasets:
-#   - path: Yukang/LongAlpaca-12k
-#     type: alpaca
 datasets:
-  - path: jaydenccc/AI_Storyteller_Dataset
-    type:
-      system_prompt: "You are an amazing storyteller. From the following synopsis, create an engaging story."
-      field_system: system
-      field_instruction: synopsis
-      field_output: short_story
-      format: "<|user|>\n {instruction} </s>\n<|assistant|>"
-      no_input_format: "<|user|>\n {instruction} </s>\n<|assistant|>"
-output_dir: ./models/Llama-3.3-70B-LongAlpaca
+  - path: Yukang/LongAlpaca-12k
+    type: alpaca
+# datasets:
+#   - path: jaydenccc/AI_Storyteller_Dataset
+#     type:
+#       system_prompt: "You are an amazing storyteller. From the following synopsis, create an engaging story."
+#       field_system: system
+#       field_instruction: synopsis
+#       field_output: short_story
+#       format: "<|user|>\n {instruction} </s>\n<|assistant|>"
+#       no_input_format: "<|user|>\n {instruction} </s>\n<|assistant|>"
+# output_dir: ./models/Llama-3.3-70B-LongAlpaca
 
 # model params
 sequence_length: 512
