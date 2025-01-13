@@ -13,3 +13,4 @@ data/
 models/
 last_run_prepared/
 .gradio
+test-deeplearning/train_llm/02_prep_for_train/output.log

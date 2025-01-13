@@ -9,7 +9,7 @@ datasets:
   - path: leo009/lawdata
     type: alpaca
 
-output_dir: ./models/Llama3_CN_Fintech
+output_dir: ./models/Llama3_CN_Law
 
 # model params
 sequence_length: 1024

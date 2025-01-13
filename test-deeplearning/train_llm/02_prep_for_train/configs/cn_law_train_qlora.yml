@@ -1,7 +1,8 @@
 # model params
 # base_model: /home/paul/.cache/huggingface/models/unsloth--Meta-Llama-3.1-8B-Instruct
 # 原始yml -> https://raw.githubusercontent.com/win4r/mytest/main/qlora.yml
-base_model: /home/paul/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/snapshots/da09a334d51a646967eec17cb412575702b3d767
+# base_model: unsloth/Meta-Llama-3.1-8B-Instruct
+base_model: /home/paul/.cache/huggingface/models/models--unsloth--llama-3-8b-Instruct-lawdata/
 # model_type: AutoModelForCausalLM
 # tokenizer_type: AutoTokenizer
 
@@ -14,12 +15,12 @@ datasets:
     type: alpaca
 dataset_prepared_path:
 val_set_size: 0
-output_dir: ./models/Llama3_CN_Fintech_Qlora
+output_dir: ./models/Llama3_CN_Law
 
 adapter: qlora
-lora_model_dir:
+# lora_model_dir: ./models/Llama3_CN_Law
 
-sequence_len: 2048
+sequence_len: 4096
 sample_packing: true
 pad_to_sequence_len: true
 
@@ -36,11 +37,10 @@ wandb_watch:
 wandb_name:
 wandb_log_model:
 
-gradient_accumulation_steps: 4
-micro_batch_size: 2
-num_epochs: 4
-# optimizer: paged_adamw_32bit
-optimize: adamw_bnb_8bit
+gradient_accumulation_steps: 1
+micro_batch_size: 3
+num_epochs: 6
+optimizer: paged_adamw_32bit
 lr_scheduler: cosine
 learning_rate: 0.0002
 

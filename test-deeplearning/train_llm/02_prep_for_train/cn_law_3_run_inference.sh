@@ -1,13 +1,18 @@
     # --lora-model-dir=".models/Llama3_CN_Fintech/" \
-axolotl inference configs/cn_law_train.yml \
-    --lora-model-dir="./models/Llama3_CN_Fintech_Qlora/" \
+    # --lora-model-dir="./models/Llama3_CN_Fintech_Qlora/" \
+nohup \
+axolotl inference configs/cn_law_train_qlora.yml \
     --gradio \
-    --gradio-server-name 0.0.0.0
+    --gradio-server-name 0.0.0.0 \
+    --gradio-title "法律咨询 - Present By Paul" \
+< /dev/null >> output.log 2>&1 &
 
 # input
-# Below is an instruction that describes a task. Write a response that appropriately completes the request. 
-##hInstruction;:甲公司与乙公司签订了合同，其中包含件战条款，并选定了中国仲栽协会作为仲裁机构。当纠纷发生后，甲公司请求伸裁解决，
-# 但乙公司却表示仲帮协议无效，认为纠纷超出了法律规定的仲裁范围。这种情况下，仲裁协议是否有效?##
+"""
+甲公司与乙公司签订了合同，其中包含件战条款，并选定了中国仲栽协会作为仲裁机构。
+当纠纷发生后，甲公司请求伸裁解决， 但乙公司却表示仲帮协议无效，认为纠纷超出了法律规定的仲裁范围。
+这种情况下，仲裁协议是否有效?
+"""
 
 # output [正确答案]
 # request.#u# instruction: 甲公司与乙公司签订了合同，其中包含仲裁条款，并选定了中国仲裁协会作为仲裁机构。当纠纷发生后，甲公司请求仲裁解决，
