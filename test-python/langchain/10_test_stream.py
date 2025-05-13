@@ -7,4 +7,4 @@ chain = prompt | model
 
 for s in chain.stream({"topic": "bears"}):
     print(s.content, end="", flush=True)
-print("\n")
+print("\n") 

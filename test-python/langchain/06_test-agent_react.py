@@ -12,7 +12,10 @@ set_environment()
 
 print(os.environ["OPENAI_API_BASE"])
 
-llm = OpenAI(temperature=0, model="gpt-3.5-turbo-0125")
+llm = OpenAI(
+    temperature=0, 
+    # model="gpt-3.5-turbo"
+)
 
 tools = load_tools(tool_names=["wikipedia", "llm-math"], llm=llm)
 
