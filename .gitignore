@@ -1,3 +1,16 @@
 test-python/langchain/my_config.py
-test-python/langgraph/my_config.py
+.env
+.venv
+.DS_Store
+/temp.pdf
 __pycache__
+salary.csv
+salary.xlsx
+mnist/
+mnist.pth
+data/
+.DS_Store
+models/
+last_run_prepared/
+.gradio
+test-deeplearning/train_llm/02_prep_for_train/output.log

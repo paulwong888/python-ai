@@ -1,4 +1,7 @@
 from transformers import pipeline
+from dotenv import load_dotenv
+
+load_dotenv()
 
 classifier = pipeline("sentiment-analysis") #使用情感分析
 result = classifier(

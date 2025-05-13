@@ -1,0 +1,1 @@
+accelerate launch -m axolotl.cli.train configs/fsdp_train_70b.yml

@@ -1,0 +1,55 @@
+# model params
+# base_model: /home/paul/.cache/huggingface/models/unsloth--Meta-Llama-3.1-8B
+base_model: unsloth/Meta-Llama-3.1-8B-Instruct
+model_type: LlamaForCausalLM
+tokenizer_type: PreTrainedTokenizerFast
+
+# dataset params
+datasets:
+  - path: jaydenccc/AI_Storyteller_Dataset
+    type:
+      system_prompt: "You are an amazing storyteller. From the following synopsis, create an engaging story."
+      field_system: system
+      field_instruction: synopsis
+      field_output: short_story
+      format: "<|user|>\n {instruction} </s>\n<|assistant|>"
+      no_input_format: "<|user|>\n {instruction} </s>\n<|assistant|>"
+# fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa.incomplete
+output_dir: ./models/Llama3_Storyteller_deepspeed
+
+# model params
+sequence_length: 1024
+pad_to_sequence_len: true
+special_tokens:
+  pad_token: <|end_of_text|>
+
+bf16: auto
+bf32: false
+
+# training params
+# batch_size: 16
+micro_batch_size: 6
+num_epochs: 4
+optimize: adamw_bnb_8bit
+learning_rate: 0.001
+
+logging_steps: 1
+
+# LoRA
+adapter: lora
+
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.05
+
+lora_target_linear: true
+
+# Gradient Accumulation
+gradient_accumulation_steps: 1
+
+# Gradient Checkpointing
+gradient_checkpointing: true
+
+# Low Precision
+# load_in_8bit: true
+

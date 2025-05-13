@@ -1,0 +1,45 @@
+# model params
+# base_model: /home/paul/.cache/huggingface/models/unsloth--Meta-Llama-3.1-8B-Instruct
+base_model: /home/paul/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/snapshots/da09a334d51a646967eec17cb412575702b3d767
+model_type: LlamaForCausalLM
+tokenizer_type: PreTrainedTokenizerFast
+
+# dataset params
+datasets:
+  - path: leo009/lawdata
+    type: alpaca
+
+output_dir: ./models/Llama3_CN_Law
+
+# model params
+sequence_length: 1024
+bf16: auto
+bf32: false
+
+# training params
+micro_batch_size: 1
+num_epochs: 4
+optimize: adamw_bnb_8bit
+learning_rate: 0.0002
+
+logging_steps: 1
+
+# LoRA
+adapter: lora
+
+lora_r: 32
+lora_alpha: 16
+lora_dropout: 0.05
+
+lora_target_linear: true
+
+# Gradient Accumulation
+gradient_accumulation_steps: 1
+
+# Gradient Checkpointing:
+gradient_checkpointing: true
+
+flash_attention: true
+
+# Low Precision
+load_in_8bit: true

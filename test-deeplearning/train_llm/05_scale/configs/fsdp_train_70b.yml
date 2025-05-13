@@ -1,0 +1,68 @@
+# model params
+# base_model: /home/paul/.cache/huggingface/models/unsloth--Meta-Llama-3.1-8B 
+# base_model: /home/paul/.cache/huggingface/models/unsloth--Llama-3.3-70B-Instruct
+# base_model: /home/paul/.cache/huggingface/models/casperhansen--llama-3-70b-fp16llama-3-70b-fp16
+base_model: /root/autodl-fs/paul/Llama-3.3-70B-Instruct
+
+# dataset params
+datasets:
+  - path: Yukang/LongAlpaca-12k
+    type: alpaca
+# datasets:
+#   - path: jaydenccc/AI_Storyteller_Dataset
+#     type:
+#       system_prompt: "You are an amazing storyteller. From the following synopsis, create an engaging story."
+#       field_system: system
+#       field_instruction: synopsis
+#       field_output: short_story
+#       format: "<|user|>\n {instruction} </s>\n<|assistant|>"
+#       no_input_format: "<|user|>\n {instruction} </s>\n<|assistant|>"
+# output_dir: ./models/Llama-3.3-70B-LongAlpaca
+
+# model params
+sequence_length: 512
+pad_to_sequence_len: true
+special_tokens:
+  pad_token: <|end_of_text|>
+
+bf16: auto
+bf32: false
+
+# training params
+# batch_size: 16
+micro_batch_size: 1
+num_epochs: 4
+optimize: adamw_torch
+learning_rate: 0.0002
+
+logging_steps: 1
+
+# LoRA / qLrRA
+adapter: qlora
+
+lora_r: 8 #8/16/32影响微调的参数总数，值越大，总数越大
+lora_alpha: 16
+lora_dropout: 0.05
+
+lora_target_linear: true
+
+# Gradient Accumulation
+gradient_accumulation_steps: 1
+
+# Gradient Checkpointing
+# gradient_checkpointing: true
+
+# Low Precision
+load_in_8bit: false
+load_in_4bit: true
+
+# FSDP
+fsdp:
+  - full_shard
+  - auto_wrap
+fsdp_config:
+  fsdp_offload_params: true
+  fsdp_cpu_ram_efficient_loading: true
+  fsdp_state_dict_type: FULL_STATE_DICT
+  fsdp_transformer_layer_cls_to_wrap: LlamaDecoderLayer
+  activation_checkpointing: true

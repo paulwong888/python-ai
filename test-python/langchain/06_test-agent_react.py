@@ -1,21 +1,17 @@
 from langchain_community.llms import FakeListLLM
 from langchain_community.agent_toolkits.load_tools import load_tools
-from langchain.agents import create_react_agent, AgentType, AgentExecutor
+from langchain.agents import initialize_agent, AgentType, AgentExecutor
 from langchain_core.prompts import PromptTemplate
-from langchain.memory import ConversationBufferMemory
-from langchain_openai import OpenAI
+from langchain.memory import ConversationBufferWindowMemory
+from langchain_openai import ChatOpenAI
 
 import os
-from my_config import set_environment
+from dotenv import load_dotenv
 
-set_environment()
+load_dotenv()
 
-print(os.environ["OPENAI_API_BASE"])
 
-llm = OpenAI(
-    temperature=0, 
-    # model="gpt-3.5-turbo"
-)
+llm = OpenAI(temperature=0, model="gpt-3.5-turbo-0125")
 
 tools = load_tools(tool_names=["wikipedia", "llm-math"], llm=llm)
 
@@ -42,17 +38,24 @@ Thought:{agent_scratchpad}
 
 prompt = PromptTemplate.from_template(template)
 
-memory = ConversationBufferMemory(memory_key="chat_history")
-
-agent = create_react_agent(
-    tools=tools, llm=llm, prompt=prompt
-    #agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, 
-    #verbose=True
+conversation_buffer_window_memory = ConversationBufferWindowMemory(
+    memory_key="chat_history",
+    k=5,
+    return_messages=True
 )
 
-agent_executor = AgentExecutor(agent=agent, tools=tools, memory = memory, max_iterations = 3,handle_parsing_errors=True,verbose= True)
+agent = initialize_agent(
+    tools=tools, llm=llm, prompt=prompt,
+    agent = AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+    memory = conversation_buffer_window_memory,
+    verbose=True,
+)
+
+# agent_executor = AgentExecutor(agent=agent, tools=tools, memory = memory, max_iterations = 3,handle_parsing_errors=True,verbose= True)
 
 question = """What is the square root of the population of the capital of the
 Country where the Olympic Games were held in 2016?"""
 
-agent_executor.invoke({"input":question})
+print(agent.agent.llm_chain.prompt.template)
+
+agent.invoke({"input":question})
